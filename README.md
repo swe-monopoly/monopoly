@@ -1,11 +1,13 @@
-# flask monopoly
+# SWE monopoly
 
-Flask monopoly is my semestral project for web programming classes in year 2020/2021. It is web service allowing user to play monopoly-like game in three modes:
-- hot seats
-- vs ai
-- online agaist aother player
+Prerequisites to run
 
-## technologies used:
-- html/scss/js
-- python (flask, sqlAlchemy, etc...)
-- web sockets
+```
+    Python3.8
+```
+
+To run the application use the below command
+
+```
+   sudo python3 main.py
+```
