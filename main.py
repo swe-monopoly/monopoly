@@ -27,5 +27,4 @@ def clear_saves():
 
 
 if __name__ == '__main__':
-    # socketio.run(app, host='10.166.135.101', port=80)
-    socketio.run(app, host='192.168.1.18', port=80)
+    socketio.run(app, host='127.0.0.1', port=80)

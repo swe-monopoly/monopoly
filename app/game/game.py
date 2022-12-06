@@ -1,4 +1,3 @@
-import json
 from typing import Union
 from random import randint, choice
 from app.game.fields import *
@@ -6,7 +5,7 @@ from app.game.surprises import SURPRISES
 
 
 class Player:
-    colors = ['#ED553B', '#F6B55C', '#3CAEA3', '#20639B']
+    colors = ['#85bb65', '#fe5e41', '#196ba0', '#735e7d']
 
     def __init__(self, pid: int):
         self.money = 3000
@@ -22,7 +21,6 @@ class Player:
             self.current_field_id = self.current_field_id - len(FIELDS) - 2 + steps
         else:
             self.current_field_id += steps
-        print(self.current_field_id)
 
         new_field_index = self.current_field_id
         if new_field_index < old_field_index:
@@ -36,7 +34,7 @@ class PlaceholderField:
         self.type = data['type']
 
     def on_enter(self, player: Player, game):
-        return 'field {} has been stepped on by player {}'.format(self.id, player.id)
+        return 'player {} has been landed on {}'.format(player.id, self.label)
 
 
 class PowerplantField:
@@ -50,7 +48,7 @@ class PowerplantField:
     def on_enter(self, player: Player, game):
         if not self.owner and player.money > self.price:
             game.can_buy = True
-            return 'field {} can be bought by player {}'.format(self.id, player.id)
+            return '{} can be bought by player {}'.format(self.label, player.id)
         if self.owner and self.owner != player:
             powerplants_count = len([f for f in self.owner.owned_fields if f.type == POWERPLANT])
             price = 10 * randint(2, 12)
@@ -58,7 +56,7 @@ class PowerplantField:
                 price = price * 2
             player.money -= price
             self.owner.money += price
-            return 'player{} just paid {}$ to player{}'.format(self.id, price, self.owner.id)
+            return 'player{} just paid {}$ to player{}'.format(player.id, price, self.owner.id)
 
 
 class TrainField:
@@ -72,7 +70,7 @@ class TrainField:
     def on_enter(self, player: Player, game):
         if not self.owner and player.money > self.price:
             game.can_buy = True
-            return 'field {} can be bought by player {}'.format(self.id, player.id)
+            return '{} can be bought by player {}'.format(self.label, player.id)
         if self.owner and self.owner != player:
             trains_count = len([f for f in self.owner.owned_fields if f.type == TRAIN])
             price = 50
@@ -80,7 +78,8 @@ class TrainField:
                 price = price * 2
             player.money -= price
             self.owner.money += price
-            return 'player{} just paid {}$ to player{}'.format(self.id, price, self.owner.id)
+            return 'player{} just paid {}$ to player{}'.format(player.id, price, self.owner.id)
+        return 'player {} has been landed on {}'.format(player.id, self.label)
 
 
 class SurpriseField:
@@ -118,11 +117,13 @@ class CityField:
     def on_enter(self, player: Player, game):
         if not self.owner and player.money > self.price:
             game.can_buy = True
+            return 'player {} has been landed on {} & it can be bought'.format(player.id, self.label)
         if self.owner and self.owner != player:
             price = self.pricing[self.build]
             player.money -= price
             self.owner.money += price
-        return 'field {} has been stepped on by player {}'.format(self.id, player.id)
+            return 'player{} just paid {}$ to player{}'.format(player.id, price, self.owner.id)
+        return 'player {} has been landed on {}'.format(player.id, self.label)
 
 
 class Game:
@@ -156,15 +157,12 @@ class Game:
             self._sell_field(self.players[self.current_player_index],
                              self.board[self.players[self.current_player_index].current_field_id])
         if payload['build']:
-            print(payload['build'], "payload")
             for field_id in payload['build']:
                 self._updated_field_build(field_id)
         self._next_player()
         move = randint(2, 12)
         self.dice = move
         player = self.players[self.current_player_index]
-        for i in player.owned_fields:
-            print(i.label)
         player.move(move)
         msg = self.board[player.current_field_id].on_enter(player, self)
         self._add_message(msg)

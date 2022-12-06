@@ -4,6 +4,7 @@
 {% block css%}
 {% assets "waiting_room_scss" %}
 <link rel=stylesheet type=text/css href="{{ ASSET_URL }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endassets %}
 {% endblock %}
 
@@ -12,22 +13,18 @@
 <div class="container">
     <div class="content">
         {% if is_host %}
-        <p>join code - send this to person you want to play with</p>
+        <p>Share this code with other players</p>
         <h2>
             <span class="code">{{ code }}</span>
-            <img class="copy-icon" src="{{url_for('static', filename='images/copy-solid.svg')}}" alt="copy">
+            <img title="copy" class="copy-icon" src="{{url_for('static', filename='images/copy.svg')}}" alt="copy">
         </h2>
         <form method="POST">
             <!-- <input type="submit" value="start game" class="start-btn"> -->
-            <button type="submit" class="start-btn">start game
-                <div class="icon-box">
-                    <img src="{{url_for('static', filename='images/play-solid.svg')}}" alt="play icon">
-                </div>
-            </button>
+            <button type="submit" class="btn btn-outline-danger">Start&nbsp;<i class="fa fa-play" style="color:#191938"></i></button>
         </form>
         {% else %}
         <form method="POST">
-            <input type="submit" value="play" class="btn btn-primary">
+            <button type="submit"  class="btn btn-outline-danger"> play </button>
         </form>
         {% endif %}
     </div>

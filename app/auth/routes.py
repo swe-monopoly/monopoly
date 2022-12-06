@@ -11,14 +11,12 @@ auth = Blueprint('auth', __name__)
 @auth.route('/register', methods=['GET', 'POST'])
 @login_forbidden
 def register():
-    print("REGIS")
     form = RegistrationForm()
     if form.validate_on_submit():
         pwd_hash = bcrypt.generate_password_hash(form.password.data, 16).decode('utf-8')
         user = User(username=form.username.data, password=pwd_hash, email=form.email.data)
         db.session.add(user)
         db.session.commit()
-        flash('account created for ' + form.username.data, 'success')
         login_user(user, remember=True)
         return redirect(url_for('game.home'))
     return render_template('auth/register.html', form=form)
@@ -33,9 +31,8 @@ def login():
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
-            flash('logged in')
             return redirect(next_page) if next_page else redirect(url_for('game.home'))
-        flash('error', 'danger')
+        flash('error', 'Something went wrong.')
     return render_template('auth/login.html', form=form)
 
 
@@ -49,5 +46,4 @@ def logout():
 @auth.route('/profile/<user_id>')
 def profile(user_id):
     user = User.query.filter_by(id=user_id).first()
-    print(user.games)
     return render_template('auth/profile.html', user=user)

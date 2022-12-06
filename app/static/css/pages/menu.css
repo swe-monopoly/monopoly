@@ -8,7 +8,7 @@ h2 {
     justify-content: space-around; }
 
     .tile {
-      border: 1px solid #B8C6D0;
+      border: 1px solid red;
       padding: 1.6rem;
       border-radius: 1rem; }
       .tile p {

@@ -1,13 +1,13 @@
 <header>
-    <a class="logo" href="{{ url_for('game.home') }}" title="home"><h4>SWE 681 Monopoly</h4></a>
+    <a class="logo" href="{{ url_for('game.home') }}" title="home"><h4>SWE 681 MONOPOLY</h4></a>
     <span class="separator"></span>
     <nav>
         <ul>
             {% if current_user.is_authenticated %}
                <li> <a class="nav-link" href="{{ url_for('auth.profile', user_id=current_user.id) }}">{{ current_user.username}}</a></li>
-                <li><a class="nav-link" href={{ url_for('game.menu') }}>new game</a></li>
-               <li> <a class="nav-link" href={{ url_for('game.join_game') }}>join game</a></li>
-               <li> <a class="nav-link" href={{ url_for('auth.logout') }}>logout</a></li>
+                <li><a class="nav-link" href={{ url_for('game.menu') }}>NEW GAME</a></li>
+               <li> <a class="nav-link" href={{ url_for('game.join_game') }}>JOIN GAME</a></li>
+               <li> <a class="nav-link" href={{ url_for('auth.logout') }}>LOGOUT</a></li>
             {% else %}
                <li> <a class="nav-link" href="{{ url_for('auth.register') }}">register</a></li>
                <li> <a class="nav-link" href="{{ url_for('auth.login') }}">login</a></li>
