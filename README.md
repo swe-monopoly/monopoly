@@ -9,5 +9,5 @@ Prerequisites to run
 To run the application use the below command
 
 ```
-   sudo python3 main.py
+   sudo flask run --cert=cert.pem --key=key.pem --port=443  
 ```

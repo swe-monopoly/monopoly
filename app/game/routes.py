@@ -130,7 +130,7 @@ def play_pvp(code):
         db.session.commit()
         socketio.emit('game over', data={'msg': '{} won.'.format('You have' if current_user.id == g.winner.db_id else 'Enemy has')})
         flash('{} won.'.format('Enemy has' if current_user.id == g.winner.db_id else 'You have'))
-        return redirect(url_for('game.home'))
+        return redirect(url_for('game.home', user_id=current_user.id))
     if request.form.get('next_turn'):
         last_player = g.players[g.current_player_index].db_id
         g.next_turn(payload)
@@ -150,7 +150,7 @@ def play_pvp(code):
                                                                                           is_winner=True))
             db.session.commit()
 
-            return redirect(url_for('game.home'))
+            return redirect(url_for('game.home', user_id=current_user.id))
         save_game(g, code)
         socketio.emit('refresh', data={'last_player': last_player}, broadcast=True)
 

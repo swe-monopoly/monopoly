@@ -7,7 +7,7 @@ def login_forbidden(f):
     @wraps(f)
     def dec(*args, **kwargs):
         if current_user.is_authenticated:
-            return redirect(url_for('game.home'))
+            return redirect(url_for('game.logout'))
         return f(*args, **kwargs)
 
     return dec

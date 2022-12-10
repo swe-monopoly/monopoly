@@ -7,7 +7,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 height: 100vh;
-font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',
+font-family: 'Lucida Console', 'Courier New', 'monospace',
 Geneva, Verdana, sans-serif; }
 
 #board {

@@ -19,7 +19,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         login_user(user, remember=True)
-        return redirect(url_for('game.home'))
+        return redirect(url_for('game.logout'))
     return render_template('auth/register.html', form=form)
 
 

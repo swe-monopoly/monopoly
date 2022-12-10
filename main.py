@@ -27,4 +27,4 @@ def clear_saves():
 
 
 if __name__ == '__main__':
-    socketio.run(app, host='127.0.0.1', port=80)
+    socketio.run(app, host='127.0.0.1', debug=True, ssl_context=('cert.pem', 'key.pem'))

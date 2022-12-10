@@ -5,5 +5,5 @@ load_dotenv()
 
 
 class Config:
-    SECRET_KEY = 'ASFASFSFSAFSFSF' # os.getenv('SECRET_KEY') |
-    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:Gopari@2022@localhost/monopoly'  # os.getenv('SQLALCHEMY_DATABASE_URI')
+    SECRET_KEY = os.getenv('SECRET_KEY')
+    SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
