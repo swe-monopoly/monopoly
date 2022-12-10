@@ -4,6 +4,7 @@ from app import db, bcrypt
 from app.auth.forms import RegistrationForm, LoginForm
 from app.auth.models import User
 from app.auth.decorators import login_forbidden
+from flask_login import current_user
 
 auth = Blueprint('auth', __name__)
 
@@ -31,7 +32,7 @@ def login():
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('game.home'))
+            return redirect(next_page) if next_page else redirect(url_for('game.home', user_id=current_user.id))
         flash('error', 'Something went wrong.')
     return render_template('auth/login.html', form=form)
 
@@ -40,7 +41,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('game.home'))
+    return redirect(url_for('game.logout'))
 
 
 @auth.route('/profile/<user_id>')

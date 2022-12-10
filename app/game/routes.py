@@ -2,6 +2,8 @@ from secrets import token_hex
 from flask import Blueprint, render_template, flash, redirect, url_for, request, make_response
 from flask_login import current_user
 from flask_socketio import join_room, send
+from sqlalchemy.testing import in_
+
 from app import db, socketio
 from app.game.game import Game
 from app.game.utils import save_game, load_game
@@ -14,8 +16,18 @@ from app.models import User
 game = Blueprint('game', __name__)
 
 
+@game.route('/<user_id>')
+def home(user_id):
+    # users_count = User.query.count()
+    # return render_template('game/home.html', users_count=users_count)
+    users_count = User.query.count()
+    win = GameModel.query.filter_by(user_id=user_id, is_winner=True).count()
+    loss = GameModel.query.filter_by(user_id=user_id, is_losser=True).count()
+    return render_template('game/home.html', users_count=users_count, win=win, loss=loss)
+
+
 @game.route('/')
-def home():
+def logout():
     users_count = User.query.count()
     return render_template('game/home.html', users_count=users_count)
 
@@ -109,7 +121,12 @@ def play_pvp(code):
     g = load_game(code)
     if g.winner:
         save_game(g, code)
-        GameModel.query.filter_by(code=code).update(dict(status=STATUS_FINISHED))
+        if current_user.id == g.winner.db_id:
+            GameModel.query.filter_by(code=code, user_id=current_user.id).update(dict(status=STATUS_FINISHED,
+                                                                                      is_losser=True))
+        else:
+            GameModel.query.filter_by(code=code, user_id=current_user.id).update(dict(status=STATUS_FINISHED,
+                                                                                      is_winner=True))
         db.session.commit()
         socketio.emit('game over', data={'msg': '{} won.'.format('You have' if current_user.id == g.winner.db_id else 'Enemy has')})
         flash('{} won.'.format('Enemy has' if current_user.id == g.winner.db_id else 'You have'))
@@ -125,7 +142,12 @@ def play_pvp(code):
             flash('{} won.'.format('Enemy has' if current_user.id == g.winner.db_id else 'You have'))
 
             save_game(g, code)
-            GameModel.query.filter_by(code=code).update(dict(status=STATUS_FINISHED))
+            if current_user.id == g.winner.db_id:
+                GameModel.query.filter_by(code=code, user_id=current_user.id).update(dict(status=STATUS_FINISHED,
+                                                                                          is_losser=True))
+            else:
+                GameModel.query.filter_by(code=code, user_id=current_user.id).update(dict(status=STATUS_FINISHED,
+                                                                                          is_winner=True))
             db.session.commit()
 
             return redirect(url_for('game.home'))

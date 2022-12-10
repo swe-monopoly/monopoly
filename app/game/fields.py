@@ -181,7 +181,7 @@ FIELDS = [
         'build_price': 300
     }, {
         'id': 25,
-        'label': 'ILLINOIS AVENUE',
+        'label': 'ILLINOIS TRAIN STATION',
         'type': TRAIN
     }, {
         'id': 26,
@@ -216,7 +216,7 @@ FIELDS = [
         'build_price': 300
     }, {
         'id': 30,
-        'label': 'TENNESSE AVENUE',
+        'label': 'TENNESSEE AVENUE',
         'type': GOTO
     }, {
         'id': 31,
@@ -251,7 +251,7 @@ FIELDS = [
         'build_price': 400
     }, {
         'id': 35,
-        'label': 'ST.CHARLES PLACE',
+        'label': 'ST.CHARLES CROSS STATION',
         'type': TRAIN
     }, {
         'id': 36,
