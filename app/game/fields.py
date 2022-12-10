@@ -11,11 +11,11 @@ FINE = 'FINE'
 FIELDS = [
     {
         'id': 0,
-        'label': 'start',
+        'label': 'START',
         'type': START
     }, {
         'id': 1,
-        'label': 'Pacific Avenue',
+        'label': 'PACIFIC AVENUE',
         'type': CITY,
         'price': 120,
         'pricing': {
@@ -24,11 +24,11 @@ FIELDS = [
         'build_price': 100
     }, {
         'id': 2,
-        'label': '?',
+        'label': 'XX PASS XX',
         'type': SECRET
     }, {
         'id': 3,
-        'label': 'North Carolina Avenue',
+        'label': 'NORTH CAROLINA AVENUE',
         'type': CITY,
         'price': 120,
         'pricing': {
@@ -41,11 +41,11 @@ FIELDS = [
         'type': FINE
     }, {
         'id': 5,
-        'label': 'King\'s Cross Station',
+        'label': 'KING\'S CROSS STATION',
         'type': TRAIN
     }, {
         'id': 6,
-        'label': 'Pennsylvania Avenue',
+        'label': 'PENNSYLVANIA AVENUE',
         'type': CITY,
         'price': 200,
         'pricing': {
@@ -54,11 +54,11 @@ FIELDS = [
         'build_price': 100
     }, {
         'id': 7,
-        'label': '?',
+        'label': 'XX PASS XX',
         'type': SECRET
     }, {
         'id': 8,
-        'label': 'Park Place',
+        'label': 'PARK PLACE',
         'type': CITY,
         'price': 200,
         'pricing': {
@@ -67,7 +67,7 @@ FIELDS = [
         'build_price': 100
     }, {
         'id': 9,
-        'label': 'Boardwalk ',
+        'label': 'BOARDWALK',
         'type': CITY,
         'price': 240,
         'pricing': {
@@ -76,11 +76,11 @@ FIELDS = [
         'build_price': 100
     }, {
         'id': 10,
-        'label': 'In Jail',
+        'label': 'IN JAIL',
         'type': PRISON
     }, {
         'id': 11,
-        'label': 'Mediterranean Avenue',
+        'label': 'MEDITERRANEAN AVENUE',
         'type': CITY,
         'price': 280,
         'pricing': {
@@ -89,11 +89,11 @@ FIELDS = [
         'build_price': 200
     }, {
         'id': 12,
-        'label': 'Electric Company',
+        'label': 'ELECTRIC COMPANY',
         'type': POWERPLANT
     }, {
         'id': 13,
-        'label': 'Baltic Avenue',
+        'label': 'BALTIC AVENUE',
         'type': CITY,
         'price': 280,
         'pricing': {
@@ -102,7 +102,7 @@ FIELDS = [
         'build_price': 200
     }, {
         'id': 14,
-        'label': 'madryt',
+        'label': 'FLORIDA CITY',
         'type': CITY,
         'price': 320,
         'pricing': {
@@ -111,11 +111,11 @@ FIELDS = [
         'build_price': 200
     }, {
         'id': 15,
-        'label': 'Reading Railroad',
+        'label': 'READING RAILROAD',
         'type': TRAIN
     }, {
         'id': 16,
-        'label': 'Connecticut Avenue',
+        'label': 'CONNECTICUT AVENUE',
         'type': CITY,
         'price': 360,
         'pricing': {
@@ -124,11 +124,11 @@ FIELDS = [
         'build_price': 200
     }, {
         'id': 17,
-        'label': '?',
+        'label': 'XX PASS XX',
         'type': SECRET
     }, {
         'id': 18,
-        'label': 'Oriental Avenue',
+        'label': 'ORIENTAL AVENUE',
         'type': CITY,
         'price': 360,
         'pricing': {
@@ -137,7 +137,7 @@ FIELDS = [
         'build_price': 200
     }, {
         'id': 19,
-        'label': 'Vermont Avenue',
+        'label': 'VERMONT AVENUE',
         'type': CITY,
         'price': 400,
         'pricing': {
@@ -146,11 +146,11 @@ FIELDS = [
         'build_price': 200
     }, {
         'id': 20,
-        'label': 'parking',
+        'label': 'PARKING',
         'type': PARKING
     }, {
         'id': 21,
-        'label': 'rotterdam',
+        'label': 'MARVIN GARDENS',
         'type': CITY,
         'price': 440,
         'pricing': {
@@ -159,11 +159,11 @@ FIELDS = [
         'build_price': 300
     }, {
         'id': 22,
-        'label': '?',
+        'label': 'XX PASS XX',
         'type': SECRET
     }, {
         'id': 23,
-        'label': 'bruksela',
+        'label': 'VENTOR AVENUE',
         'type': CITY,
         'price': 440,
         'pricing': {
@@ -172,7 +172,7 @@ FIELDS = [
         'build_price': 300
     }, {
         'id': 24,
-        'label': 'amsterdam',
+        'label': 'ATLANTIC AVENUE',
         'type': CITY,
         'price': 480,
         'pricing': {
@@ -181,11 +181,11 @@ FIELDS = [
         'build_price': 300
     }, {
         'id': 25,
-        'label': 'kolej pół,',
+        'label': 'ILLINOIS AVENUE',
         'type': TRAIN
     }, {
         'id': 26,
-        'label': 'malmo',
+        'label': 'TEXAS',
         'type': CITY,
         'price': 520,
         'pricing': {
@@ -194,7 +194,7 @@ FIELDS = [
         'build_price': 300
     }, {
         'id': 27,
-        'label': 'goteborg',
+        'label': 'INDIANA AVENUE',
         'type': CITY,
         'price': 520,
         'pricing': {
@@ -203,11 +203,11 @@ FIELDS = [
         'build_price': 300
     }, {
         'id': 28,
-        'label': 'wodociąg',
+        'label': 'KENTUCKY AVENUE',
         'type': POWERPLANT
     }, {
         'id': 29,
-        'label': 'sztokholm',
+        'label': 'NEWYORK AVENUE',
         'type': CITY,
         'price': 560,
         'pricing': {
@@ -216,11 +216,11 @@ FIELDS = [
         'build_price': 300
     }, {
         'id': 30,
-        'label': 'do więzienia',
+        'label': 'TENNESSE AVENUE',
         'type': GOTO
     }, {
         'id': 31,
-        'label': 'frankfurt',
+        'label': 'ST.JAMES PLACE',
         'type': CITY,
         'price': 600,
         'pricing': {
@@ -229,7 +229,7 @@ FIELDS = [
         'build_price': 400
     }, {
         'id': 32,
-        'label': 'kolonia',
+        'label': 'VIRGINIA AVENUE',
         'type': CITY,
         'price': 600,
         'pricing': {
@@ -238,11 +238,11 @@ FIELDS = [
         'build_price': 400
     }, {
         'id': 33,
-        'label': '?',
+        'label': 'XX PASS XX',
         'type': SECRET
     }, {
         'id': 34,
-        'label': 'bonn',
+        'label': 'STATES AVENUE',
         'type': CITY,
         'price': 640,
         'pricing': {
@@ -251,15 +251,15 @@ FIELDS = [
         'build_price': 400
     }, {
         'id': 35,
-        'label': 'kolej wsch.',
+        'label': 'ST.CHARLES PLACE',
         'type': TRAIN
     }, {
         'id': 36,
-        'label': '?',
+        'label': 'XX PASS XX',
         'type': SECRET
     }, {
         'id': 37,
-        'label': 'insbruck',
+        'label': 'FAIRFAX COUNTY',
         'type': CITY,
         'price': 700,
         'pricing': {
@@ -268,11 +268,11 @@ FIELDS = [
         'build_price': 400
     }, {
         'id': 38,
-        'label': 'podatek',
+        'label': 'HERNDON',
         'type': FINE
     }, {
         'id': 39,
-        'label': 'wiedeń',
+        'label': 'ASHBURN',
         'type': CITY,
         'price': 800,
         'pricing': {
