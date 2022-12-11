@@ -14,6 +14,7 @@ from app.models import User
 
 game = Blueprint('game', __name__)
 
+
 @game.route('/<user_id>')
 @login_required
 def home(user_id):
@@ -26,6 +27,8 @@ def home(user_id):
         flash("error!", 'danger')
         users_count = User.query.count()
         return render_template('game/home.html', users_count=users_count)
+
+
 @game.route('/')
 def logout():
     users_count = User.query.count()
@@ -35,6 +38,7 @@ def logout():
 @game.route('/menu')
 def menu():
     return render_template('game/menu.html')
+
 
 @game.route('/field_info/<field_id>')
 def field_info(field_id):
@@ -51,6 +55,7 @@ def field_info(field_id):
         return make_response(field_data), 200
     else:
         return redirect(url_for('auth.login'))
+
 
 @game.route('/init_pvp')
 def init_pvp():
@@ -129,7 +134,8 @@ def play_pvp(code):
             GameModel.query.filter_by(code=code, user_id=current_user.id).update(dict(status=STATUS_FINISHED,
                                                                                       is_winner=True))
         db.session.commit()
-        socketio.emit('game over', data={'msg': '{} won.'.format('You have' if current_user.id == g.winner.db_id else 'Enemy has')})
+        socketio.emit('game over',
+                      data={'msg': '{} won.'.format('You have' if current_user.id == g.winner.db_id else 'Enemy has')})
         flash('{} won.'.format('Enemy has' if current_user.id == g.winner.db_id else 'You have'))
         return redirect(url_for('game.home', user_id=current_user.id))
     if request.form.get('next_turn'):
@@ -162,7 +168,7 @@ def play_pvp(code):
         game=g, code=code,
         pvp=True,
         is_active=is_active
-        )
+    )
 
 
 @socketio.on('join')
