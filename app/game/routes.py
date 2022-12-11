@@ -2,7 +2,6 @@ from secrets import token_hex
 from flask import Blueprint, render_template, flash, redirect, url_for, request, make_response
 from flask_login import current_user
 from flask_socketio import join_room, send
-from sqlalchemy.testing import in_
 
 from app import db, socketio
 from app.game.game import Game
@@ -18,8 +17,6 @@ game = Blueprint('game', __name__)
 
 @game.route('/<user_id>')
 def home(user_id):
-    # users_count = User.query.count()
-    # return render_template('game/home.html', users_count=users_count)
     users_count = User.query.count()
     win = GameModel.query.filter_by(user_id=user_id, is_winner=True).count()
     loss = GameModel.query.filter_by(user_id=user_id, is_losser=True).count()

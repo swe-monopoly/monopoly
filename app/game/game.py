@@ -57,6 +57,7 @@ class PowerplantField:
             player.money -= price
             self.owner.money += price
             return 'player{} just paid {}$ to player{}'.format(player.id, price, self.owner.id)
+        return 'player {} has been landed on {}'.format(player.id, self.label)
 
 
 class TrainField:
@@ -135,7 +136,6 @@ class Game:
         self.can_buy = False
         self.winner = None
         self.dice = 0
-
         for i, _ in enumerate(range(players_count)):
             p = Player(i)
             if len(self.players) == 0:

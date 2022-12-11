@@ -4,13 +4,11 @@
     let currentMoney = parseInt(playerInfo.dataset.current_player_money, 10);
 
     tiles.forEach(tile => tile.addEventListener('click', e => {
-            console.log(e)
         if (!e.shiftKey) {
             if (e.target.dataset.owner_id === playerInfo.dataset.current_player_index) {
                 if (parseInt(e.target.dataset.build_price, 10) < currentMoney) {
                     if (buildCount < 3) {
                         if (e.target.dataset.build != 'h') {
-                            console.log('added buildonfield')
                             buildInput.value += e.target.dataset.id + ';';
                             e.target.style = 'border: 3px solid blue';
                             buildCount++;
@@ -25,9 +23,7 @@
         }
 
         if (e.shiftKey) {
-        console.log(buildInput);
             if (buildInput.value.split(';').includes(e.target.dataset.id)) {
-                console.log('removed buildonfield')
                 buildInput.value = buildInput.value.split(';').filter(id => id != e.target.dataset.id).join(';')
                 e.target.style = '';
                 buildCount--;

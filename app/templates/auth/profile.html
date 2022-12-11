@@ -15,26 +15,14 @@
                {% for game in user.games %}
                     {% if game.status == 'STATUS_ACTIVE' or game.status == 'STATUS_WAITING' %}
                     <li class="game">
-                            {% if game.mode == 'HOT_SEATS_MODE' %}
-                                <a href="{{url_for('game.hot_seats', code=game.code)}}">
-                            {% endif %}
                             {% if game.mode == 'PVP_MODE' %}
                                 <a href="{{url_for('game.play_pvp', code=game.code)}}">
                             {% endif %}
-                            {% if game.mode == 'PVAI_MODE' %}
-                                <a href="{{url_for('game.vs_ai', code=game.code)}}">
-                            {% endif %}
 
-
-                            {% if game.mode == 'HOT_SEATS_MODE' %}
-                                Hot Seats {% if game.status == 'STATUS_ACTIVE' %} (active) {% endif %} {% if game.status == 'STATUS_WAITING' %} (waiting) {% endif %}
-                            {% endif %}
                             {% if game.mode == 'PVP_MODE' %}
                                 PvP {% if game.status == 'STATUS_ACTIVE' %} (active) {% endif %} {% if game.status == 'STATUS_WAITING' %} (waiting) {% endif %}
                             {% endif %}
-                            {% if game.mode == 'PVAI_MODE' %}
-                                Vs Ai {% if game.status == 'STATUS_ACTIVE' %} (active) {% endif %} {% if game.status == 'STATUS_WAITING' %} (waiting) {% endif %}
-                            {% endif %}
+
                         </a>
                     </li>
                     {% endif %}
