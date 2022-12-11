@@ -191,11 +191,6 @@ class Game:
         player.owned_fields.append(field)
         field.owner = player
 
-    def _sell_field1(self, player: Player, field: Union[CityField, TrainField]):
-        player.money += field.price
-        player.owned_fields.remove(field)
-        field.owner = none
-
     def _add_message(self, msg):
         self.msgs.append(msg)
 
