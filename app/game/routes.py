@@ -14,15 +14,18 @@ from app.models import User
 
 game = Blueprint('game', __name__)
 
-
 @game.route('/<user_id>')
+@login_required
 def home(user_id):
-    users_count = User.query.count()
-    win = GameModel.query.filter_by(user_id=user_id, is_winner=True).count()
-    loss = GameModel.query.filter_by(user_id=user_id, is_losser=True).count()
-    return render_template('game/home.html', users_count=users_count, win=win, loss=loss)
-
-
+    if user_id == str(current_user.id):
+        users_count = User.query.count()
+        win = GameModel.query.filter_by(user_id=user_id, is_winner=True).count()
+        loss = GameModel.query.filter_by(user_id=user_id, is_losser=True).count()
+        return render_template('game/home.html', users_count=users_count, win=win, loss=loss)
+    else:
+        flash("error!", 'danger')
+        users_count = User.query.count()
+        return render_template('game/home.html', users_count=users_count)
 @game.route('/')
 def logout():
     users_count = User.query.count()
@@ -33,20 +36,21 @@ def logout():
 def menu():
     return render_template('game/menu.html')
 
-
 @game.route('/field_info/<field_id>')
 def field_info(field_id):
-    field_id = int(field_id)
-    field_data = None
-    for field in FIELDS:
-        if field['id'] == field_id:
-            field_data = field
+    if current_user.__dict__ != {}:
+        field_id = int(field_id)
+        field_data = None
+        for field in FIELDS:
+            if field['id'] == field_id:
+                field_data = field
 
-    if not field_data:
-        return make_response('not found'), 404
+        if not field_data:
+            return make_response('not found'), 404
 
-    return make_response(field_data), 200
-
+        return make_response(field_data), 200
+    else:
+        return redirect(url_for('auth.login'))
 
 @game.route('/init_pvp')
 def init_pvp():
