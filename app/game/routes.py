@@ -1,6 +1,6 @@
 from secrets import token_hex
 from flask import Blueprint, render_template, flash, redirect, url_for, request, make_response
-from flask_login import current_user
+from flask_login import current_user, login_required
 from flask_socketio import join_room, send
 
 from app import db, socketio
