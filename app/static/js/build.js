@@ -28,7 +28,6 @@ const cardBody = document.querySelector('.card-body')
                             updateBuyForm(currentMoney)
                         }
                     }
-
                 }
             }
         }

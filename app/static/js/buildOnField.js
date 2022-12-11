@@ -17,11 +17,9 @@
                             updateBuyForm(currentMoney)
                         }
                     }
-
                 }
             }
         }
-
         if (e.shiftKey) {
             if (buildInput.value.split(';').includes(e.target.dataset.id)) {
                 buildInput.value = buildInput.value.split(';').filter(id => id != e.target.dataset.id).join(';')

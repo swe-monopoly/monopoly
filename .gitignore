@@ -8,3 +8,5 @@ app/game/games/*
 **/*.pyc
 setup.sh
 **/*.pkl
+
+app/game/save_files
