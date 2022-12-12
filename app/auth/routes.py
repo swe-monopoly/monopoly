@@ -1,4 +1,7 @@
-from flask import Blueprint, redirect, url_for, render_template, flash, request
+import urllib.request as req
+from datetime import timedelta
+
+from flask import Blueprint, redirect, url_for, render_template, flash, request, session, app
 from flask_login import login_user, logout_user, login_required
 from app import db, bcrypt
 from app.auth.forms import RegistrationForm, LoginForm
@@ -15,7 +18,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         pwd_hash = bcrypt.generate_password_hash(form.password.data, 16).decode('utf-8')
-        user = User(username=form.username.data, password=pwd_hash, email=form.email.data)
+        user = User(username="{}".format(form.username.data), password="{}".format(pwd_hash), email="{}".format(form.email.data))
         db.session.add(user)
         db.session.commit()
         login_user(user, remember=True)
@@ -28,13 +31,19 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user = User.query.filter_by(email="{}".format(form.email.data)).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
-            login_user(user, remember=form.remember.data)
-            next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('game.home', user_id=current_user.id))
-        flash('error', 'Something went wrong.')
+            login_user(user, duration=1, remember=form.remember.data)
+            session.permanent = True
+            app.permanent_session_lifetime = timedelta(minutes=5)
+            return redirect(url_for('game.home', user_id=current_user.id))
+        flash('Entered Wrong password', 'Something went wrong.')
     return render_template('auth/login.html', form=form)
+
+
+@auth.before_request
+def make_session_permanent():
+    session.permanent = True
 
 
 @auth.route('/logout')
@@ -46,5 +55,5 @@ def logout():
 
 @auth.route('/profile/<user_id>')
 def profile(user_id):
-    user = User.query.filter_by(id=user_id).first()
+    user = User.query.filter_by(id="{}".format(user_id)).first()
     return render_template('auth/profile.html', user=user)

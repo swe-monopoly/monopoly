@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from flask import Flask
 from flask_assets import Environment, Bundle
 from flask_sqlalchemy import SQLAlchemy
@@ -12,6 +14,8 @@ socketio = SocketIO()
 
 def create_app():
     app = Flask(__name__)
+
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=60)
 
     app_settings = 'app.config.Config'
 

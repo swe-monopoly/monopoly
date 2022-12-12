@@ -20,9 +20,9 @@ game = Blueprint('game', __name__)
 def home(user_id):
     if user_id == str(current_user.id):
         users_count = User.query.count()
-        win = GameModel.query.filter_by(user_id=user_id, is_winner=True).count()
-        loss = GameModel.query.filter_by(user_id=user_id, is_losser=True).count()
-        return render_template('game/home.html', users_count=users_count, win=win, loss=loss)
+        win = GameModel.query.filter_by(user_id="{}".format(user_id), is_winner=True).count()
+        loss = GameModel.query.filter_by(user_id="{}".format(user_id), is_losser=True).count()
+        return render_template('game/home.html', users_count="{}".format(users_count), win=win, loss=loss)
     else:
         flash("error!", 'danger')
         users_count = User.query.count()
@@ -36,6 +36,7 @@ def logout():
 
 
 @game.route('/menu')
+@login_required
 def menu():
     return render_template('game/menu.html')
 
@@ -58,12 +59,13 @@ def field_info(field_id):
 
 
 @game.route('/init_pvp')
+@login_required
 def init_pvp():
     code = token_hex(16)
     g = Game(2, current_user.id)
     save_game(g, code)
 
-    game_record = GameModel(code=code, user_id=current_user.id, mode=PVP_MODE, isHost=True)
+    game_record = GameModel(code="{}".format(code), user_id=current_user.id, mode=PVP_MODE, isHost=True)
     db.session.add(game_record)
     db.session.commit()
 
@@ -71,12 +73,13 @@ def init_pvp():
 
 
 @game.route('/waiting_room/<code>', methods=['POST', 'GET'])
+@login_required
 def waiting_room(code):
     if request.method == 'POST':
-        partner_has_joined: bool = bool(GameModel.query.filter_by(code=code, isHost=False).first())
+        partner_has_joined: bool = bool(GameModel.query.filter_by(code="{}".format(code), isHost=False).first())
         print(partner_has_joined)
         if partner_has_joined:
-            game_record = GameModel.query.filter_by(code=code, isHost=True).first()
+            game_record = GameModel.query.filter_by(code="{}".format(code), isHost=True).first()
             game_record.status = STATUS_ACTIVE
             db.session.commit()
             return redirect(url_for('game.play_pvp', code=code))
@@ -87,17 +90,18 @@ def waiting_room(code):
 
 
 @game.route('/join_game', methods=['POST', 'GET'])
+@login_required
 def join_game():
     form = JoinGameForm()
     if form.validate_on_submit():
         code = form.join_code.data
-        game_records_count = GameModel.query.filter_by(code=code).count()
+        game_records_count = GameModel.query.filter_by(code="{}".format(code)).count()
         if game_records_count == 1:
             g = load_game(code)
             g.pvp_add_joining_player(current_user.id)
             save_game(g, code)
 
-            new_game_record = GameModel(code=code, user_id=current_user.id, mode=PVP_MODE)
+            new_game_record = GameModel(code="{}".format(code), user_id="{}".format(current_user.id), mode=PVP_MODE)
             db.session.add(new_game_record)
             db.session.commit()
             return redirect(url_for('game.guest_waiting_room', code=code))
@@ -108,9 +112,10 @@ def join_game():
 
 
 @game.route('/guest_waiting_room/<code>', methods=['POST', 'GET'])
+@login_required
 def guest_waiting_room(code):
     if request.method == 'POST':
-        game_record = GameModel.query.filter_by(code=code, isHost=True).first()
+        game_record = GameModel.query.filter_by(code="{}".format(code), isHost=True).first()
         if game_record.status == STATUS_ACTIVE:
             return redirect(url_for('game.play_pvp', code=code))
 
@@ -119,6 +124,7 @@ def guest_waiting_room(code):
 
 
 @game.route('/play_pvp/<code>', methods=['POST', 'GET'])
+@login_required
 def play_pvp(code):
     payload = {
         'buy': bool(int(request.form.get('buy'))) if request.form.get('buy') else None,
@@ -128,10 +134,10 @@ def play_pvp(code):
     if g.winner:
         save_game(g, code)
         if current_user.id == g.winner.db_id:
-            GameModel.query.filter_by(code=code, user_id=current_user.id).update(dict(status=STATUS_FINISHED,
+            GameModel.query.filter_by(code="{}".format(code), user_id="{}".format(current_user.id)).update(dict(status=STATUS_FINISHED,
                                                                                       is_losser=True))
         else:
-            GameModel.query.filter_by(code=code, user_id=current_user.id).update(dict(status=STATUS_FINISHED,
+            GameModel.query.filter_by(code="{}".format(code), user_id="{}".format(current_user.id)).update(dict(status=STATUS_FINISHED,
                                                                                       is_winner=True))
         db.session.commit()
         socketio.emit('game over',
@@ -150,10 +156,10 @@ def play_pvp(code):
 
             save_game(g, code)
             if current_user.id == g.winner.db_id:
-                GameModel.query.filter_by(code=code, user_id=current_user.id).update(dict(status=STATUS_FINISHED,
+                GameModel.query.filter_by(code="{}".format(code), user_id="{}".format(current_user.id)).update(dict(status=STATUS_FINISHED,
                                                                                           is_losser=True))
             else:
-                GameModel.query.filter_by(code=code, user_id=current_user.id).update(dict(status=STATUS_FINISHED,
+                GameModel.query.filter_by(code="{}".format(code), user_id="{}".format(current_user.id)).update(dict(status=STATUS_FINISHED,
                                                                                           is_winner=True))
             db.session.commit()
 

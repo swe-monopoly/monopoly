@@ -26,7 +26,7 @@ def save_game(game: Game, code: str) -> str:
 
     with open(filename, 'rb') as f:
         data = f.read()
-        existing_file = GameFileModel.query.filter_by(code=code).first()
+        existing_file = GameFileModel.query.filter_by(code="{}".format(code)).first()
         if existing_file is not None:
             existing_file.file = data
             existing_file.updated_at = datetime.datetime.now()
@@ -39,7 +39,7 @@ def save_game(game: Game, code: str) -> str:
 
 
 def load_game(code: str) -> Union[Game, None]:
-    file_details = GameFileModel.query.filter_by(code=code).first()
+    file_details = GameFileModel.query.filter_by(code="{}".format(code)).first()
     filename = get_games_dir() + '/{}.pkl'.format(code)
     try:
         with open(filename, 'wb') as f1:
