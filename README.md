@@ -26,4 +26,4 @@ To run the application use the below command
    sudo flask run --cert=cert.pem --key=key.pem --port=443  
 ```
 <br><br><br><br>
-NOTE: View ["MONOPOLY.pdf"]() file to gain a detailed understanding of the Design and Architecture of the application.
+NOTE: View ["MONOPOLY.pdf"](https://github.com/swe-monopoly/swe-monopoly/blob/shreenath96-patch-2/MONOPOLY.pdf) file to gain a detailed understanding of the Design and Architecture of the application.
