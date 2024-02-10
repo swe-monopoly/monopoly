@@ -21,6 +21,9 @@ def delete_game(code: str):
 def save_game(game: Game, code: str) -> str:
     filename = get_games_dir() + '/{}.pkl'.format(code)
 
+    if not os.path.exists(get_games_dir()):
+        os.makedirs(get_games_dir())
+
     with open(filename, 'wb') as f:
         pickle.dump(game, f, pickle.HIGHEST_PROTOCOL)
 
